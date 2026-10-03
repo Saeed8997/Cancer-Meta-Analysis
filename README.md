@@ -10,11 +10,11 @@ An end-to-end, reproducible Machine Learning and Meta-Analysis pipeline designed
 
 ## 🔬 Abstract
 
-Clinical risk and survival models frequently suffer from significant performance degradation when deployed across external hospital centers and genomic cohorts. This repository implements a robust cancer meta-analysis framework applied to **3,065 Breast Invasive Carcinoma (BRCA) patients** across two major public multicenter cohorts: **TCGA PanCancer Atlas** ($N=1,084$) and **METABRIC** ($N=1,981$).
+Clinical risk and survival models frequently suffer from significant performance degradation when deployed across external hospital centers and genomic cohorts. This repository implements a robust cancer meta-analysis framework applied to **3,065 Breast Invasive Carcinoma (BRCA) patients** across two major public multicenter cohorts: **TCGA PanCancer Atlas** (N=1,084) and **METABRIC** (N=1,981).
 
 Using **Leave-One-Study-Out (LOSO) Cross-Validation** coupled with **DerSimonian-Laird Random-Effects Meta-Analysis**, this pipeline:
-1. Identifies center-level batch effects stemming from clinical documentation discrepancies (e.g., radiotherapy annotations causing an initial $I^2 = 97.2\%$ heterogeneity).
-2. Isolates intrinsic biological features (Age, Tumor Stage, ER status), reducing between-study variance to **$I^2 = 0.0\%$** and boosting held-out external generalization AUC to **$0.647$ (95% CI: $[0.626, 0.669]$)**.
+1. Identifies center-level batch effects stemming from clinical documentation discrepancies (e.g., radiotherapy annotations causing an initial I^2 = 97.2\% heterogeneity).
+2. Isolates intrinsic biological features (Age, Tumor Stage, ER status), reducing between-study variance to **I^2 = 0.0\%** and boosting held-out external generalization AUC to **0.647 (95% CI: [0.626, 0.669])**.
 
 ---
 
@@ -57,8 +57,8 @@ Using **Leave-One-Study-Out (LOSO) Cross-Validation** coupled with **DerSimonian
 
 | Pipeline Stage | Evaluated Features | METABRIC Held-Out AUC | TCGA Held-Out AUC | Pooled Meta-AUC (95% CI) | Heterogeneity ($I^2$) | Cochran's $Q$ ($p$-value) |
 |:---|:---|:---:|:---:|:---:|:---:|:---:|
-| **Initial (Uncorrected)** | Biological + Treatment Documentation | `0.467` | `0.639` | `0.552` [$0.384, 0.720$] | **`97.2%`** | $35.26$ ($p < 0.0001$) |
-| **Corrected (Biological Only)** | Age, Stage, ER Status | **`0.650`** | **`0.634`** | **`0.647` [$0.626, 0.669$]** | **`0.0%`** | **$0.32$ ($p = 0.5723$)** |
+| **Initial (Uncorrected)** | Biological + Treatment Documentation | `0.467` | `0.639` | `0.552` [0.384, 0.720] | **`97.2%`** | 35.26 (p < 0.0001) |
+| **Corrected (Biological Only)** | Age, Stage, ER Status | **`0.650`** | **`0.634`** | **`0.647` [0.626, 0.669]** | **`0.0%`** | **0.32 (p = 0.5723)** |
 
 ### Top Clinical Features (Permutation Impact on ROC-AUC)
 1. **Radiation Therapy Documentation** (40.4% relative impact — *Identified as primary center-specific batch effect artifact*)
@@ -132,8 +132,8 @@ python visualize.py
 
 ## 📈 Visualizations
 
-- **Kaplan-Meier Survival Analysis (`kaplan_meier.png`)**: Compares overall survival between TCGA and METABRIC cohorts with confidence bands and Log-Rank test statistics ($\chi^2 = 0.69, p = 0.407$).
-- **Corrected Forest Plot (`forest_plot_corrected.png`)**: Illustrates consistent cross-cohort generalizability ($0.634$ and $0.650$) and zero residual heterogeneity ($I^2 = 0.0\%$).
+- **Kaplan-Meier Survival Analysis (`kaplan_meier.png`)**: Compares overall survival between TCGA and METABRIC cohorts with confidence bands and Log-Rank test statistics (\chi^2 = 0.69, p = 0.407).
+- **Corrected Forest Plot (`forest_plot_corrected.png`)**: Illustrates consistent cross-cohort generalizability (0.634 and 0.650) and zero residual heterogeneity (I^2 = 0.0\%).
 - **Feature Importance Analysis (`feature_importance.png`)**: Highlights clinical attribute rankings by permutation impact on ROC-AUC.
 
 ---
